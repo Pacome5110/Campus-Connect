@@ -1,91 +1,98 @@
-# CampusConnect
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
 
-**Öğrenci:** Pacome berınyuy fondzenyuy
-**Okul No:** 24080410151
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-Üniversite etkinlik platformu – NestJS + Go polyglot backend. Node REST/GraphQL ile veri yönetimini yaparken, performans odaklı loglama, analitik ve metrik süreçleri eşzamanlı olarak Go tarafından webhooklar aracılığıyla dağıtık bir yapıyla çözülmektedir.
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Teknolojiler
-- NestJS (TypeScript) — REST + GraphQL (Main Backend - :3000)
-- Go (Gin) — Notification + Analytics (Auxiliary Service - :8080)
-- PostgreSQL — Veritabanı
-- Docker — Containerization
+## Description
 
-## Kurulum
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-### Gereksinimler
-- Node.js 18+, Go 1.21+, PostgreSQL 15+
+## Project setup
 
-### NestJS Service
 ```bash
-cd nestjs-service
-npm install
-cp .env.example .env
-npx prisma migrate dev --name init
-npm run start:dev
+$ npm install
 ```
 
-### Go Service
+## Compile and run the project
+
 ```bash
-cd go-service
-go mod download
-cp .env.example .env
-go run main.go
+# development
+$ npm run start
+
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
 ```
 
-## Environment Variables
-- `DATABASE_URL`: Ortak Postgres bağlantı URL'si (Prisma).
-- `JWT_SECRET`: Bearer token imzalama şifresi (AuthService).
-- `API_KEY`: NestJS'nin Go servis uç noktalarına erişmek için kullandığı sır.
-- `GO_WEBHOOK_URL`: Go hook API'si, asenkron veriler için NestJS kullanır.
+## Run tests
 
-## API Endpoints
-
-| Servis  | Metot | Path               | Açıklama                     |
-|---------|-------|--------------------|------------------------------|
-| NestJS  | POST  | /api/v1/auth/req   | Kullanıcı Kayıt işlemi       |
-| NestJS  | POST  | /api/v1/auth/login | Token alımı (JWT)            |
-| NestJS  | GET   | /api/v1/users      | Tüm kullanıcıları listele    |
-| NestJS  | GET   | /api/v1/events     | Tüm etkinlikler              |
-| NestJS  | POST  | /api/v1/events     | Etkinlik Oluştur (ADMIN)     |
-| NestJS  | GraphQL| /graphql          | GraphQL endpoint             |
-| Go      | POST  | /webhook           | NestJS event dinleyicisi     |
-| Go      | GET   | /api/analytics     | Metrikleri getir (API_KEY)   |
-| Go      | POST  | /api/notifications | Bildirim yolla (API_KEY)     |
-
-## Örnek Request / Response
-
-1. **Register**
 ```bash
-curl -X POST http://localhost:3000/api/v1/auth/register -H "Content-Type: application/json" -d '{"name":"A","email":"a@m.com","password":"123"}'
-```
-*Yanıt:* `{"id": "uuid", "name": "A", "email": "a@m.com", "role": "USER"}`
+# unit tests
+$ npm run test
 
-2. **Login**
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+## Deployment
+
+When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+
+If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+
 ```bash
-curl -X POST http://localhost:3000/api/v1/auth/login -H "Content-Type: application/json" -d '{"email":"a@m.com","password":"123"}'
+$ npm install -g @nestjs/mau
+$ mau deploy
 ```
-*Yanıt:* `{"access_token": "eyJ..."}`
 
-3. **Get Events**
-```bash
-curl -X GET http://localhost:3000/api/v1/events -H "Authorization: Bearer <TOKEN>"
-```
-*Yanıt:* `[{"id": "...", "title": "Buluşma"}]`
+With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
-4. **Go Analytics**
-```bash
-curl -X GET http://localhost:8080/api/analytics -H "X-API-Key: my-secret-key"
-```
-*Yanıt:* `{"active_users": 530, "event_count": 142}`
+## Resources
 
-5. **Go Rate Limit Test (Hata Senaryosu)**
-```bash
-for i in {1..10}; do curl -X GET http://localhost:8080/health; done
-```
-*Yanıt 6. istekten itibaren:* `{"error": "Too Many Requests. Rate limit exceeded."}`
+Check out a few resources that may come in handy when working with NestJS:
 
-## Mimari Kararlar
-- **Neden NestJS + Go?** NestJS esnek, iyi organize edilmiş modüler yapısıyla iş kuralları (CRUD) için harikadır; Go is hafif thread (Goroutine) yönetimleri sayesinde arka plandaki işlemler (Notification / Analytics write) için çok güçlü ve az bellek yakar.
-- **Webhook Tercihi:** İki servis arasındaki güçlü bağımsızlığı sağlamak ve mesajların HTTP protokolü üzerinden asenkron aktarımını kolaylaştırmak için Event-Driven Architecture kurgulanmıştır.
-- **Rate Limiting (Token Bucket / Mutex Counter):** Sistemin abuse edilmesini veya DDoS vektörlerini azaltmak ve API Gateway benzeri davranışta bulunmak için bellekte basit concurrency-safe kilitli (sync.Mutex) sayaç yapısı kullanıldı.
+- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
+- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
+- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
+- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
+- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
+- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
+- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
+- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+## Stay in touch
+
+- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
